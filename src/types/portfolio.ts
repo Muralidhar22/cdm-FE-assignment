@@ -1,24 +1,25 @@
-import Technology from "./technologies"
+import { TechType } from "./technologies"
 
 export type ProjectType = {
     id: string
     imageSrc: string
     title: string
-    technologies: Technology[]
+    techStack: TechType[]
+    projectUrl: string
     hasDisplayed: boolean
 }
 
 export type PlaygroundType = {
     id: string
     title: string
-    technology: Technology
+    techStack: TechType
     participants: string[]
     hasDisplayed: boolean
 }
 
 export type CertificateType = {
     id: string,
-    technology?: Technology
+    technology?: TechType
     title: string
     type: 'technology' | 'achievement' 
     issueDate: string
@@ -26,10 +27,10 @@ export type CertificateType = {
 }
 
 export type StatsType = {
-    longestStreak: number
+    longestStreak: number | null
     league: 'Novice' | 'Pro' | 'Expert' | 'Intermediate'
-    karma: number
-    experience: number
+    karma: number | null
+    experience: number | null
 }
 
 export type PortfolioDataType = {

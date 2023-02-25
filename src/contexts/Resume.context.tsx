@@ -2,11 +2,12 @@ import { useContext, createContext, ReactNode, useState, Dispatch } from "react"
 import { nanoid } from "nanoid"
 
 import MyDate from "@/types/months"
-import Technology from "@/types/technologies"
+import { technologies } from "@/constants/technologies"
+import { TechType } from "@/types/technologies"
 
 export type WorkExperienceType = {
     id: string
-    logoSource?: string
+    companyLogo?: string
     title: string
     location: string
     jobDescription: string
@@ -20,20 +21,17 @@ export type WorkExperienceType = {
 }
 
 type ResumeDataType = {
-    description: string[]
+    description: string
     workExperience: WorkExperienceType[]
-    techSkills: { id: string, technology:Technology}[]
+    techSkills: TechType[]
     interests: { id: string, name: string }[]
     languages: {id: string, language: string, flagPicture?: string}[]
 }
 
 
 const INITIAL_RESUME_DATA : ResumeDataType = {
-    description: ["A self-driven, versatile, reliable, diligent individual who is calm a cheerful with a team-minded approach to work and getting things done.","A student who is passionate and with a keen eye for design."],
-    techSkills: [{ id: nanoid(), technology: "CSS 3"},
-                  {id: nanoid(),technology: "HTML 5"},
-                   {id: nanoid(), technology: "HTML/CSS" },
-                     {id: nanoid() , technology: "JavaScript"}],
+    description: "A self-driven, versatile, reliable, diligent individual who is calm a cheerful with a team-minded approach to work and getting things done. A student who is passionate and with a keen eye for design.",
+    techSkills: [{...technologies.htmlCss},{...technologies.js},{...technologies.reactjs},{...technologies.nextjs}],
     workExperience:[{
         id: nanoid(),
         company: "Google",
@@ -42,7 +40,7 @@ const INITIAL_RESUME_DATA : ResumeDataType = {
             isPresent: true
         },
         location: "Dublin",
-        logoSource: "/assets/google.svg",
+        companyLogo: "/assets/google.svg",
         jobDescription: "This role would be great for a web developer with 3+ years' experience in designing and developing responsive websites.",
         jobResponsibilities:["Create an appealing design and turn it into a WordPress plugin","Manage all technical aspects of the CMS","Conducting website/application tests"] ,
         title: "Front End Developer"

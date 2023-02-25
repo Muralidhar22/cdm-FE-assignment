@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import SearchBar from "@/components/SearchBar";
 import { usePortfolioContext, PortfolioContextType } from "@/contexts/Portfolio.context";
+import { useProfileContext, ProfileContextType } from "@/contexts/Profile.context";
 
 type PropsType = {
     children: ReactNode
@@ -11,6 +12,7 @@ type PropsType = {
 
 const Layout = ({ children }: PropsType) => {
     const { portfolioData } = usePortfolioContext() as PortfolioContextType
+    const { profileData } = useProfileContext() as ProfileContextType
     return(
         <>
             <nav className="flex items-center justify-between">
@@ -37,13 +39,14 @@ const Layout = ({ children }: PropsType) => {
                     <span className="font-extrabold text-zinc-500">{portfolioData.stats.longestStreak}</span>
                 </span>
                 <span className="cursor-pointer relative">
-                    <Image
-                        src="/assets/default-pp.png"
-                        width={42}
-                        height={42}
-                        alt="user profile picture"
-                    />
-                    
+                    <span className="block w-9 h-9 rounded-full overflow-hidden">    
+                        <Image
+                            src={profileData.avatar}
+                            width={42}
+                            height={42}
+                            alt="user profile picture"
+                        />
+                    </span>
 
                     <div className="absolute -top-3 -right-3">
                         <div className="relative">

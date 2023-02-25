@@ -2,27 +2,30 @@ import { useContext, createContext, ReactNode, useState, Dispatch, SetStateActio
 import { nanoid } from "nanoid"
 
 import { PortfolioDataType } from "@/types/portfolio"
+import { technologies } from "@/constants/technologies"
 
 const INITIAL_PORTFOLIO_DATA : PortfolioDataType = {
     playgrounds: [{
         id: nanoid(),
         participants: [],
         title: "playground title",
-        technology: "JavaScript",
+        techStack: {...technologies.js},
         hasDisplayed: true
     }],
-    certificates: [{id: nanoid(),issueDate: "Dec 16th, 2022", title:"Advanced theoretical Javascript", technology: "JavaScript",type: "technology", hasDisplayed: true}],
+    certificates: [{id: nanoid(),issueDate: "Dec 16th, 2022", title:"Advanced theoretical Javascript", technology: {...technologies.js },type: "technology", hasDisplayed: true}],
     projects: [{
         id: nanoid(),
         imageSrc: "/assets/portfolio.png",
-        technologies: ["ReactJs","HTML/CSS"],
+        techStack: [{...technologies.htmlCss},{...technologies.reactjs}],
         title: "Personal Portfolio Website",
+        projectUrl: "",
         hasDisplayed: true
     },{
         id: nanoid(),
         imageSrc: "",
-        technologies: ["ReactJs","HTML/CSS"],
+        techStack: [{...technologies.htmlCss},{...technologies.reactjs}],
         title: "Personal Portfolio Website 2",
+        projectUrl: "",
         hasDisplayed: true
     }],
     stats: {

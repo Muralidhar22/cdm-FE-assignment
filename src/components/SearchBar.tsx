@@ -14,7 +14,7 @@ const SearchBar = () => {
                         alt="search icon"
                         className="cursor-pointer mr-1"
                     />
-                    <input onChange={() => {}} type="search" onFocus={() => setFocus(true)} onBlur={() => setFocus(false)} placeholder="Search" className="outline-none" />
+                    <input onChange={() => {}} type="search" onFocus={() => setFocus(true)} onBlur={() => setFocus(false)} placeholder="Search" className="outline-none bg-transparent" />
                     <span className="bg-zinc-100 rounded-lg px-1 py-2">
                         <select value="courses" className="text-zinc-500 bg-transparent outline-none cursor-pointer" name="search-selection" id="">
                             <option value="courses">courses</option>

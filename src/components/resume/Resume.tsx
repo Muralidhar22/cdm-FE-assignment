@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { useResumeContext, ResumeContextType } from "@/contexts/Resume.context";
-import { technologyIcons } from "@/constants/technologyIcons";
+import { technologies } from "@/constants/technologies";
 
 const Resume = () => {
     const { resumeData } = useResumeContext() as ResumeContextType
@@ -19,12 +19,12 @@ const Resume = () => {
                             <Image
                                 width={34}
                                 height={34}
-                                src="/assets/company.svg" 
-                                alt={exp.company + "logo"}
+                                src={exp.companyLogo ?? "/assets/company.svg"} 
+                                alt={"company" + "logo"}
                             />
                             <div>
                                 <h3 className="font-bold">{exp.title}</h3>
-                                
+                                <span>{exp.company + " " + "Inc."}</span>
                             </div>
                             {}
                         </div>
@@ -36,14 +36,15 @@ const Resume = () => {
                     <div className="flex flex-wrap gap-2">
                         {
                             resumeData.techSkills.map((skill) => (
-                                <div key={skill.id} className="text-base bg-zinc-100 text-zinc-900  font-semibold py-2 px-3 rounded-lg flex gap-1">
-                                  <Image 
+                                <div key={skill.id} className="text-base bg-zinc-100 text-zinc-900  font-semibold py-2 px-3 rounded-lg flex gap-2 items-center">
+                                  <Image
+                                    className="shrink-0" 
                                     width={20}
                                     height={20}
-                                    alt={skill.technology}
-                                    src={technologyIcons[skill.technology]}
+                                    alt={skill.displayName}
+                                    src={skill.imageSrc}
                                 />
-                                <span>{skill.technology}</span>
+                                <span>{skill.displayName}</span>
                             </div>
                             ))
                         }

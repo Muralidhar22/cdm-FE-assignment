@@ -3,7 +3,7 @@ import { useContext, createContext, ReactNode, useState, Dispatch, SetStateActio
 import { SocialsDataType } from "@/types/socials"
 
 const INITIAL_SOCIALS_DATA : SocialsDataType = {
-        github: "",
+        github: "https://github.com/Muralidhar22",
         linkedin: "",
         facebook: "",
         instagram: "",

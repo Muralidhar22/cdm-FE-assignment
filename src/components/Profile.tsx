@@ -14,7 +14,7 @@ type SocialContactsPropsType = {
 
 const SocialContacts = ({ img, alt, src }: SocialContactsPropsType) => {
     return (
-        <span>
+        <span className="p-2 border-2 rounded-lg border-zinc-200 grid place-content-center">
             <Link href={src}>
                 <Image
                     src={`/assets/${img}`}
@@ -64,12 +64,14 @@ const Profile = () => {
             </div>
             <div className="flex justify-between border-zinc-200 border-b-2 border-x-2 rounded-b-xl items-start px-6 pb-6">
                 <span className="cursor-pointer relative -translate-y-1/2">
+                    <span className="block w-24 h-24 border-2 border-zinc-100 rounded-full overflow-hidden">
                         <Image
-                            src="/assets/default-pp.png"
+                            src={profileData.avatar}
                             width={100}
                             height={100}
                             alt="user profile picture"
                         />
+                    </span>
                         <div className="absolute -bottom-8 -right-6">
                             <div className="relative">
                                 <Image
@@ -98,14 +100,14 @@ const Profile = () => {
                     <div className="flex flex-wrap gap-2">
                         {resumeData.techSkills.map((skill) => (
                             <div key={skill.id} className="bg-zinc-100 text-zinc-900  font-semibold text-xs py-2 px-3 rounded-lg">
-                                {skill.technology}
+                                {skill.displayName}
                             </div>
                         ))
                         }
                     </div>
                     <hr className="my-8"/>
                     <div className="flex justify-between">
-                        <div>
+                        <div className="flex gap-1">
                         {socialsData.facebook 
                         && 
                         <SocialContacts 
@@ -118,29 +120,42 @@ const Profile = () => {
                         &&
                         <SocialContacts 
                             alt="linkedin"
-                            img="facebook-logo.svg"
-                            src={socialsData.facebook}
+                            img="linkedin.svg"
+                            src={socialsData.linkedin}
                         /> 
                         }
                         {socialsData.instagram 
                         && 
                         <SocialContacts 
                             alt="instagram"
-                            img="facebook-logo.svg"
-                            src={socialsData.facebook}
+                            img="instagram.svg"
+                            src={socialsData.instagram}
                         />
                         }
                         {socialsData.github 
                         &&
                         <SocialContacts 
                             alt="github"
-                            img="facebook-logo.svg"
-                            src={socialsData.facebook}
+                            img="github.svg"
+                            src={socialsData.github}
                         /> 
                         }
                             
                         </div>
+                        <div className="flex gap-2">
+                            <button>
+                                <span>
+                                    
+                            <Image 
+                                src="/assets/bookmark.svg"
+                                alt="bookmark icon"
+                                width={24}
+                                height={24}
+                            />
+                                </span>
+                            </button>
                         <button className="bg-zinc-100 text-zinc-900 font-semibold text-xs py-2 px-3 rounded-lg">Follow</button>
+                        </div>
                     </div>
                 </div>
             </div>

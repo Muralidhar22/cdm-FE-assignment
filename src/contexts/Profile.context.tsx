@@ -11,7 +11,8 @@ type ProfileDataType = {
     visibilityFollowers: boolean,
     visibilityXP: boolean,
     visibilityBadges: boolean,
-    isOpenForJob: boolean
+    isOpenForJob: boolean,
+    location: string
 }
 
 
@@ -25,7 +26,8 @@ const INITIAL_PROFILE_DATA : ProfileDataType = {
     visibilityFollowers: true,
     visibilityXP: true,
     visibilityBadges: true,
-    isOpenForJob: true
+    isOpenForJob: true,
+    location: "India"
 }
 
 export type ProfileContextType = {

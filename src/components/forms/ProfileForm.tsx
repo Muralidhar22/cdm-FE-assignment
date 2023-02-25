@@ -1,7 +1,8 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
+import UnSavedDialogBox from "../UnSavedDialogBox";
 import FormInputBox from "@/components/FormInputBox";
 import ToggleSwitch from "@/components/ToggleSwitch";
 import { useProfileContext, ProfileContextType } from "@/contexts/Profile.context";
@@ -10,10 +11,17 @@ const ProfileForm = () => {
     const { profileData, setProfileData } = useProfileContext() as ProfileContextType
     const [profileFormData, setProfileFormData] = useState(profileData)
     const inputFileRef = useRef<HTMLInputElement>(null)
+    const [isFormChanged, setIsFormChanged] = useState(false)
+    
+    useEffect(() => {
+        const isChanged = JSON.stringify(profileFormData) !== JSON.stringify(profileData)
+        setIsFormChanged(isChanged)
+    },[profileFormData])
     
     const onSubmitHandler = (e: React.FormEvent) => {
         e.preventDefault()
         setProfileData(profileFormData)
+        setIsFormChanged(false)
     }
     
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>, value?: boolean | string) => {
@@ -23,7 +31,7 @@ const ProfileForm = () => {
     }
     
     const removeProfilePicture = () => {
-        setProfileFormData(prev => ({ ...prev, avatar: "" }))
+        setProfileFormData(prev => ({ ...prev, avatar: "/assets/add-profile.svg" }))
     }
     
     const uploadProfilePicture = () => {
@@ -32,24 +40,38 @@ const ProfileForm = () => {
         }
     }
     
+    const onProfileChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files && e.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setProfileFormData(prev => ({...prev, avatar:  reader.result as string}));
+            };
+            reader.readAsDataURL(file);
+            }
+    }
+
     return (
         <div className="grow">
         <div className="flex gap-4 items-center">
-            <Image 
-                src={profileData.avatar}
-                width={72}
-                height={72}
-                alt="profile picture"
-            />
+            <span className="rounded-full overflow-hidden w-20 h-20">
+                <Image
+                    src={profileFormData.avatar}
+                    width={80}
+                    height={80}
+                    alt="profile picture"
+                />
+            </span>
             <button onClick={uploadProfilePicture} className="bg-[#4F46E5] text-white p-2.5 rounded-lg text-sm">Upload new picture</button>
-            <input id="file-input" ref={inputFileRef} type="file" className="hidden" />
+            <input id="file-input" ref={inputFileRef} type="file" className="hidden" onChange={onProfileChangeHandler}/>
             <button className="text-sm font-semibold p-2.5 rounded-lg bg-zinc-100" onClick={removeProfilePicture}>Delete</button>
             <div className="flex items-center gap-1">
                         <span className="text-zinc-500">Looking for job</span>
                   <ToggleSwitch 
-                        name="visibilityFollowers"
+                        name="isOpenForJob"
                         onChangeHandler={onChangeHandler}
-                        data={profileFormData.visibilityFollowers}
+                        data={profileFormData.isOpenForJob}
                     />
                 </div>
         </div>
@@ -63,9 +85,8 @@ const ProfileForm = () => {
                 onChangeHandler={onChangeHandler}
                 placeholder="enter your full name"
                 note="Name entered above will be used for all issued certificates"
+                required={true}
             />
-            <label htmlFor="about" className="block font-semibold text-sm">About</label>
-            <textarea name="about" id="about" className="block w-full h-24 resize-none px-3 py-3.5 rounded-lg border-2 border-zinc-100 focus:border-zinc-900" cols={50} rows={10}></textarea>
             <FormInputBox
                 value={profileFormData.profession}
                 type="text"
@@ -74,6 +95,7 @@ const ProfileForm = () => {
                 label="profession"
                 onChangeHandler={onChangeHandler}
                 placeholder="Enter your current profession"
+                required={true}
             />
             <FormInputBox
                 value={profileFormData.dob}
@@ -83,6 +105,7 @@ const ProfileForm = () => {
                 label="date of birth"
                 onChangeHandler={onChangeHandler}
                 placeholder="DD/MM/YYYY"
+                required={true}
             />
             <label htmlFor="gender" className="block font-semibold text-sm">Gender</label>
             <select name="gender" value={profileFormData.gender ?? ""} id="gender" className="w-full px-3 py-3.5 rounded-lg border-2 border-zinc-100 focus:border-zinc-900 cursor-pointer" placeholder="what is your gender?">
@@ -130,8 +153,13 @@ const ProfileForm = () => {
         <div className="flex gap-2">
             <Link href="/" className="bg-zinc-100 text-sm text-zinc-900 rounded-lg py-2.5 font-semibold px-4">Cancel</Link>
 
-            <button type="submit" className="cursor-pointer text-white bg-[#4F46E5] rounded-lg py-2.5 font-semibold px-4 text-sm">Save Changes</button>
-            </div>
+            <button type="submit" className="cursor-pointer text-white bg-primary-600 rounded-lg py-2.5 font-semibold px-4 text-sm">Save Changes</button>
+        </div>
+        {
+            isFormChanged
+            &&
+            <UnSavedDialogBox />
+        }
         </form>
         </div>
     )
