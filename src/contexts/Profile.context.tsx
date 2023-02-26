@@ -1,35 +1,45 @@
-import { useContext, createContext, ReactNode, useState, Dispatch } from "react"
-import { ProfileDataType } from "@/types/profile"
+import {
+  useContext,
+  createContext,
+  ReactNode,
+  useState,
+  Dispatch,
+} from "react";
+import { ProfileDataType } from "@/types/profile";
 
-const INITIAL_PROFILE_DATA : ProfileDataType = {
-    avatar: "/assets/default-pp.png",
-    displayName: "Muralidhar Akkireddy",
-    about: "Web Developer who's eager to learn and looking for opportunities to get hired as a developer.",
-    profession: "Learner",
-    dob: "2000-04-14",
-    gender: "Male",
-    visibilityFollowers: true,
-    visibilityXP: true,
-    visibilityBadges: true,
-    isOpenForJob: true,
-    location: "India"
-}
+const INITIAL_PROFILE_DATA: ProfileDataType = {
+  avatar: "/assets/default-pp.png",
+  displayName: "Muralidhar Akkireddy",
+  about:
+    "Web Developer who's eager to learn and looking for opportunities to get hired as a developer.",
+  profession: "Learner",
+  dob: "2000-04-14",
+  gender: "Male",
+  visibilityFollowers: true,
+  visibilityXP: true,
+  visibilityBadges: true,
+  isOpenForJob: true,
+  location: "India",
+};
 
 export type ProfileContextType = {
-    profileData: ProfileDataType
-    setProfileData: Dispatch<ProfileDataType>
-}
+  profileData: ProfileDataType;
+  setProfileData: Dispatch<ProfileDataType>;
+};
 
 type ProfileProviderPropsType = {
-    children: ReactNode
-}
+  children: ReactNode;
+};
 
-const ProfileContext = createContext<ProfileContextType | null>(null)
+const ProfileContext = createContext<ProfileContextType | null>(null);
 
 export const ProfileProvider = ({ children }: ProfileProviderPropsType) => {
-    const [profileData, setProfileData] = useState<ProfileDataType>(INITIAL_PROFILE_DATA)
-    const value = { profileData, setProfileData }
-    return <ProfileContext.Provider value={value}>{children}</ProfileContext.Provider>
-}
+  const [profileData, setProfileData] =
+    useState<ProfileDataType>(INITIAL_PROFILE_DATA);
+  const value = { profileData, setProfileData };
+  return (
+    <ProfileContext.Provider value={value}>{children}</ProfileContext.Provider>
+  );
+};
 
-export const useProfileContext = () => useContext(ProfileContext)
+export const useProfileContext = () => useContext(ProfileContext);

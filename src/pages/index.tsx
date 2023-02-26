@@ -1,7 +1,7 @@
-import Head from 'next/head'
+import Head from "next/head";
 
-import Profile from '@/components/profile'
-import ProfileTab from '@/components/profile/ProfileTab'
+import Profile from "@/components/profile";
+import ProfileTab from "@/components/profile/ProfileTab";
 
 export default function Home() {
   return (
@@ -16,5 +16,5 @@ export default function Home() {
         <ProfileTab />
       </div>
     </>
-  )
+  );
 }

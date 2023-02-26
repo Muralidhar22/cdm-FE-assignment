@@ -1,27 +1,22 @@
-
-import NewPlaygroundForm from "../forms/NewPlaygroundForm"
-import PlaygroundContainer from "./PlaygroundContainer"
-import { usePortfolioContext, PortfolioContextType } from "@/contexts/Portfolio.context"
+import NewPlaygroundForm from "../forms/NewPlaygroundForm";
+import PlaygroundContainer from "./PlaygroundContainer";
+import {
+  usePortfolioContext,
+  PortfolioContextType,
+} from "@/contexts/Portfolio.context";
 
 const AddPlayground = () => {
-    const { portfolioData } = usePortfolioContext() as PortfolioContextType
-    
-    return(
-                <div className="grow">
+  const { portfolioData } = usePortfolioContext() as PortfolioContextType;
 
-                    <NewPlaygroundForm />
-                
-                {
-                    portfolioData.playgrounds.map((pg) => (
-                        <PlaygroundContainer 
-                            key={pg.id}
-                            data={pg}
-                        />
-                    ))
-                }
-                </div>
+  return (
+    <div className="grow">
+      <NewPlaygroundForm />
 
-    )
-}
+      {portfolioData.playgrounds.map((pg) => (
+        <PlaygroundContainer key={pg.id} data={pg} />
+      ))}
+    </div>
+  );
+};
 
-export default AddPlayground
+export default AddPlayground;

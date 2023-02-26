@@ -1,1 +1,1 @@
-export type editNavLinks = "portfolio" | "profile" | "socials" | "resume"
+export type editNavLinks = "portfolio" | "profile" | "socials" | "resume";
