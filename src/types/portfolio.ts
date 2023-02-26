@@ -1,5 +1,7 @@
 import { TechType } from "./technologies"
 
+export type CertType = 'technology' | 'achievement' 
+
 export type ProjectType = {
     id: string
     imageSrc: string
@@ -15,15 +17,17 @@ export type PlaygroundType = {
     techStack: TechType
     participants: string[]
     hasDisplayed: boolean
+    createDateTime: Date | number
 }
 
 export type CertificateType = {
     id: string,
     technology?: TechType
     title: string
-    type: 'technology' | 'achievement' 
+    certType: CertType
     issueDate: string
     hasDisplayed: boolean
+    certUrl: string
 }
 
 export type StatsType = {

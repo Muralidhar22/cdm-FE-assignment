@@ -1,8 +1,7 @@
 import Head from 'next/head'
-import Link from 'next/link'
 
-import Profile from '@/components/Profile'
-import ProfileTab from '@/components/ProfileTab'
+import Profile from '@/components/profile'
+import ProfileTab from '@/components/profile/ProfileTab'
 
 export default function Home() {
   return (

@@ -1,15 +1,13 @@
 import { nanoid } from "nanoid"
-import { useState, SetStateAction } from "react"
+import { useState } from "react"
 import Link from "next/link";
 
 import { technologies } from "@/constants/technologies";
 import FormInputBox from "../FormInputBox";
-import { TechType } from "@/types/technologies";
-import { ProjectType, PortfolioDataType } from "@/types/portfolio";
+import { ProjectType } from "@/types/portfolio";
+import { usePortfolioContext, PortfolioContextType } from "@/contexts/Portfolio.context"
 
-type NewProjectFormPropsType = {
-    setPortfolioData: React.Dispatch<SetStateAction<PortfolioDataType>>
-}
+import toast from "react-hot-toast"
 
 const INITIAL_FORM_DATA: ProjectType = {
     hasDisplayed: false,
@@ -20,9 +18,9 @@ const INITIAL_FORM_DATA: ProjectType = {
     title: ""
 }
 
-const NewProjectForm = ({ setPortfolioData }: NewProjectFormPropsType) => {
-    const [selectedSkills, setSelectedSkills] = useState<TechType[]>([])
+const NewProjectForm = () => {
     const [formData, setFormData] = useState<ProjectType>(INITIAL_FORM_DATA)
+    const { setPortfolioData } = usePortfolioContext() as PortfolioContextType
 
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         const key = e.target.name
@@ -34,21 +32,24 @@ const NewProjectForm = ({ setPortfolioData }: NewProjectFormPropsType) => {
         if(formData) {
             setPortfolioData((prev) => ({ ...prev, projects: [...prev.projects, { ...formData}] }))
         }
+        setFormData(INITIAL_FORM_DATA)
+        toast.success("Saved Successfully!")
     }
     
-    const addSkill = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const newTech = technologies[e.target.value]
-        setSelectedSkills(prev => prev ? [...prev, {...newTech}] : [{...newTech}])
-        setFormData(prev => ({ ...prev, techStack: prev.techStack ? [...prev.techStack, {...newTech}] : [{...newTech}] } ))
+    const addTech = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const newTech = technologies.find(tech => tech.id === e.target.value)
+        if(newTech) {
+            setFormData(prev => ({ ...prev, techStack: prev.techStack ? [...prev.techStack, {...newTech}] : [{...newTech}] } ))
+        }
     }
     
-    const removeSkill = (id: string) => {
-        const filteredStack = selectedSkills?.filter(skill => skill.id !== id)
-        setSelectedSkills(filteredStack)
+    const removeTech = (id: string) => {
+        const filteredStack = formData.techStack?.filter(tech => tech.id !== id)
+        setFormData(prev => ({ ...prev,techStack: [...filteredStack]  }))
     }
     
     const isTechStackSelected = (verifyId: string) => {
-        const isSelected = selectedSkills && selectedSkills?.find((skill) => skill.id === verifyId)
+        const isSelected = formData.techStack.find((tech) => tech.id === verifyId)
         return isSelected 
     }
     
@@ -63,6 +64,7 @@ const NewProjectForm = ({ setPortfolioData }: NewProjectFormPropsType) => {
                     onChangeHandler={onChangeHandler}
                     value={formData.title}
                     required={true}
+                    focusBorderClr="border-primary-600"
                />
                <FormInputBox 
                     name="imageSrc"
@@ -72,6 +74,7 @@ const NewProjectForm = ({ setPortfolioData }: NewProjectFormPropsType) => {
                     onChangeHandler={onChangeHandler}
                     value={formData.imageSrc}
                     required={true}
+                    focusBorderClr="border-primary-600"
                />
                <FormInputBox 
                     name="projectUrl"
@@ -81,24 +84,25 @@ const NewProjectForm = ({ setPortfolioData }: NewProjectFormPropsType) => {
                     onChangeHandler={onChangeHandler}
                     value={formData.projectUrl}
                     required={true}
+                    focusBorderClr="border-primary-600"
                />
 
-                <label htmlFor="techstack" className="font-semibold text-sm">Tech stack:</label>
+                <label htmlFor="techStack" className="font-semibold text-sm">Tech stack:</label>
                 <div className="flex flex-wrap gap-1">    
-                    {selectedSkills?.map((skill) => (
-                        <span className="rounded-md border-2 bg-primary-600 p-1 text-white relative text-base">
-                            {skill.displayName}
-                            <span className="text-base absolute bg-zinc-500 rounded-full -top-1 -right-1 w-4 h-4 p-0.5 rounded-full bg-zinc text-white cursor-pointer grid place-content-center" onClick={() => removeSkill(skill.id)}>-</span>
+                    {formData.techStack?.map((tech) => (
+                        <span key={tech.id} className="rounded-md border-2 bg-primary-600 p-1 text-white relative text-base">
+                            {tech.displayName}
+                            <span className="text-base absolute bg-zinc-500 rounded-full -top-1 -right-1 w-4 h-4 p-0.5 rounded-full bg-zinc text-white cursor-pointer grid place-content-center" onClick={() => removeTech(tech.id)}>-</span>
                         </span>
                     ))}
                 </div>
-                <select onChange={addSkill} required={selectedSkills.length > 0} className="w-full px-3 py-3.5 rounded-lg border-2 border-zinc-100 focus:border-primary-600 cursor-pointer" value="" name="tech stack" id="techstack">
-                <option value="">--select tech stack--</option>
-                {Object.keys(technologies).map((tech) => (
+                <select value="" onChange={addTech} required={formData.techStack.length < 1} className="w-full px-3 py-3.5 rounded-lg border-2 border-zinc-100 focus:border-primary-600 cursor-pointer" name="techStack" id="techStack">
+                    <option value="" disabled>--choose option--</option>
+                {technologies.map((tech) => (
                     <>
                     {
-                        !isTechStackSelected(technologies[tech].id) &&
-                        <option value={tech}>{technologies[tech].displayName}</option>
+                        !isTechStackSelected(tech.id) &&
+                        <option key={tech.id} value={tech.id}>{tech.displayName}</option>
                     }
                     </>
                  ))}

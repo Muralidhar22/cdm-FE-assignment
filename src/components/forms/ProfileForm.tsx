@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, ChangeEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -6,6 +6,9 @@ import UnSavedDialogBox from "../UnSavedDialogBox";
 import FormInputBox from "@/components/FormInputBox";
 import ToggleSwitch from "@/components/ToggleSwitch";
 import { useProfileContext, ProfileContextType } from "@/contexts/Profile.context";
+import { ProfileDataType } from "@/types/profile";
+
+import toast from "react-hot-toast"
 
 const ProfileForm = () => {
     const { profileData, setProfileData } = useProfileContext() as ProfileContextType
@@ -22,11 +25,12 @@ const ProfileForm = () => {
         e.preventDefault()
         setProfileData(profileFormData)
         setIsFormChanged(false)
+        toast.success("Saved Successfully!")
     }
     
-    const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>, value?: boolean | string) => {
-        const key = e.target.name
-        value = value !== undefined ? value : e.target.value
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>, isToggle?: boolean) => {
+        const key = e.target.name as keyof ProfileDataType
+        const value = isToggle ? !profileFormData[key] : e.target.value
         setProfileFormData(prev => ({ ...prev, [key]: value }))
     }
     
@@ -71,7 +75,7 @@ const ProfileForm = () => {
                   <ToggleSwitch 
                         name="isOpenForJob"
                         onChangeHandler={onChangeHandler}
-                        data={profileFormData.isOpenForJob}
+                        toggleValue={profileFormData.isOpenForJob}
                     />
                 </div>
         </div>
@@ -108,8 +112,8 @@ const ProfileForm = () => {
                 required={true}
             />
             <label htmlFor="gender" className="block font-semibold text-sm">Gender</label>
-            <select name="gender" value={profileFormData.gender ?? ""} id="gender" className="w-full px-3 py-3.5 rounded-lg border-2 border-zinc-100 focus:border-zinc-900 cursor-pointer" placeholder="what is your gender?">
-                <option value="" disabled>What is your gender?</option>
+            <select name="gender" value={profileFormData.gender ?? ""} onChange={onChangeHandler} id="gender" className="w-full px-3 py-3.5 rounded-lg border-2 border-zinc-100 focus:border-zinc-900 cursor-pointer" placeholder="what is your gender?">
+                <option value="" disabled>--choose option--</option>
                 <option value="Male" >Male</option>
                 <option value="Female" >Female</option>
                 <option value="Other" >Other</option>
@@ -125,7 +129,7 @@ const ProfileForm = () => {
                   <ToggleSwitch 
                         name="visibilityFollowers"
                         onChangeHandler={onChangeHandler}
-                        data={profileFormData.visibilityFollowers}
+                        toggleValue={profileFormData.visibilityFollowers}
                     />
                 </div>
                 <div className="flex justify-between">
@@ -136,7 +140,7 @@ const ProfileForm = () => {
                   <ToggleSwitch
                     name="visibilityXP"
                     onChangeHandler={onChangeHandler}
-                  data={profileFormData.visibilityXP}/>
+                  toggleValue={profileFormData.visibilityXP}/>
                 </div>
                 <div  className="flex justify-between">
                     <div>
@@ -146,14 +150,14 @@ const ProfileForm = () => {
                   <ToggleSwitch 
                     name="visibilityBadges"
                     onChangeHandler={onChangeHandler}
-                  data={profileFormData.visibilityBadges}/>
+                  toggleValue={profileFormData.visibilityBadges}/>
                 </div>
             </section>
             
         <div className="flex gap-2">
             <Link href="/" className="bg-zinc-100 text-sm text-zinc-900 rounded-lg py-2.5 font-semibold px-4">Cancel</Link>
 
-            <button type="submit" className="cursor-pointer text-white bg-primary-600 rounded-lg py-2.5 font-semibold px-4 text-sm">Save Changes</button>
+            <button type="submit" disabled={isFormChanged} className={`text-white ${isFormChanged ? "bg-primary-600" : "bg-primary-600/50"} rounded-lg py-2.5 font-semibold px-4 text-sm`}>Save Changes</button>
         </div>
         {
             isFormChanged

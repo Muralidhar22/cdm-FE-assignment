@@ -5,21 +5,26 @@ import FormInputBox from "../FormInputBox";
 import ProjectContainer from "../portfolio/ProjectContainer";
 import PlaygroundContainer from "../portfolio/PlaygroundContainer";
 import CertificateContainer from "../portfolio/CertificateContainer";
-import NewCertificateForm from "./NewCertificateForm";
-import NewPlaygroundForm from "./NewPlaygroundForm";
-import NewProjectForm from "./NewProjectForm";
 import { usePortfolioContext, PortfolioContextType } from "@/contexts/Portfolio.context";
 import UnSavedDialogBox from "../UnSavedDialogBox";
+
+import toast from "react-hot-toast"
 
 const PortfolioForm = () => {
     const { portfolioData, setPortfolioData } = usePortfolioContext() as PortfolioContextType
     const [ portfolioFormData, setPortfolioFormData ] = useState(portfolioData)
     const [isFormChanged, setIsFormChanged] = useState(false)
     
+    useEffect(() => {
+        const isChanged = JSON.stringify(portfolioFormData) !== JSON.stringify(portfolioData)
+        setIsFormChanged(isChanged)
+    },[portfolioFormData])
+
     const onSubmitHandler = (e: React.FormEvent) => {
         e.preventDefault()
         setPortfolioData(portfolioFormData)
         setIsFormChanged(false)
+        toast.success("Saved Successfully!")
     }
     
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,10 +33,6 @@ const PortfolioForm = () => {
             setPortfolioFormData((prev) => ({ ...prev, stats: { ...prev.stats, [e.target.name]: value }}))
     }
     
-    useEffect(() => {
-        const isChanged = JSON.stringify(portfolioFormData) !== JSON.stringify(portfolioData)
-        setIsFormChanged(isChanged)
-    },[portfolioFormData])
     
     return (
         <div className="grow">
@@ -76,11 +77,7 @@ const PortfolioForm = () => {
                     portfolioFormData.projects.map((project) => (
                         <ProjectContainer 
                             key={project.id}
-                            projectId={project.id}
-                            techStack={project.techStack}
-                            title={project.title}
-                            img={project.imageSrc}
-                            isSelected={project.hasDisplayed}
+                            data={project}
                             isOption={true}
                             setData={setPortfolioFormData}
                         />
@@ -90,15 +87,16 @@ const PortfolioForm = () => {
             <section>
                 <div className="flex justify-between items-center">
                     <h2 className="text-2xl font-bold">Playgrounds</h2>
-                    <Link href="/edit?details=portfolio?new=playground" shallow className="font-semibold text-primary-600">Create New Playground</Link>
+                    <Link href="/edit?new=playground" shallow className="font-semibold text-primary-600">Create New Playground</Link>
                 </div>
 
                 {
                     portfolioFormData.playgrounds.map((pg) => (
                         <PlaygroundContainer 
                             key={pg.id}
-                            title={pg.title}
-                            techStack={pg.techStack}
+                            data={pg}
+                            isOption={true}
+                            setData={setPortfolioFormData}
                         />
                     ))
                 }
@@ -106,13 +104,15 @@ const PortfolioForm = () => {
             <section>
                 <div className="flex justify-between items-center">
                     <h2 className="text-2xl font-bold">Certificates</h2>
-                    <Link href="/edit?details=portfolio?new=project" shallow className="font-semibold text-primary-600">Add new certificate</Link>
+                    <Link href="/edit?new=certificate" shallow className="font-semibold text-primary-600">Add new certificate</Link>
                 </div>
                     {
                         portfolioFormData.certificates.map((cert) => (
                             <CertificateContainer 
                                 key={cert.id}
                                 data={cert}
+                                setData={setPortfolioFormData}
+                                isOption={true}
                             />
                         ))
                     }
@@ -121,7 +121,7 @@ const PortfolioForm = () => {
                         <div className="flex gap-2">
         <Link href="/" className="bg-zinc-100 text-sm text-zinc-900 rounded-lg py-2.5 font-semibold px-4">Cancel</Link>
         
-        <button type="submit" className="cursor-pointer text-white bg-primary-600 rounded-lg py-2.5 font-semibold px-4 text-sm">Save Changes</button>
+        <button type="submit" disabled={isFormChanged} className={`text-white ${isFormChanged ? "bg-primary-600" : "bg-primary-600/50"} rounded-lg py-2.5 font-semibold px-4 text-sm`}>Save Changes</button>
         </div>
         {
                 isFormChanged 

@@ -6,6 +6,8 @@ import { useSocialsContext, SocialsContextType } from "@/contexts/Socials.contex
 import { SocialsDataType } from "@/types/socials";
 import UnSavedDialogBox from "../UnSavedDialogBox";
 
+import toast from "react-hot-toast"
+
 const SocialsForm = () => {
     const { socialsData, setSocialsData } = useSocialsContext() as SocialsContextType
     const [socialsFormData, setSocialsFormData] = useState<SocialsDataType>(socialsData)
@@ -20,6 +22,7 @@ const SocialsForm = () => {
         e.preventDefault()
         setSocialsData(socialsFormData)
         setIsFormChanged(false)
+        toast.success("Saved Successfully!")
     }
     
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +42,7 @@ const SocialsForm = () => {
             <div className="flex gap-2">
                 <Link href="/" className="bg-zinc-100 text-sm text-zinc-900 rounded-lg py-2.5 font-semibold px-4">Cancel</Link>
 
-                <button type="submit" className="cursor-pointer text-white bg-primary-600 rounded-lg py-2.5 font-semibold px-4 text-sm">Save Changes</button>
+                <button type="submit" disabled={isFormChanged} className={`text-white ${isFormChanged ? "bg-primary-600" : "bg-primary-600/50"} rounded-lg py-2.5 font-semibold px-4 text-sm`}>Save Changes</button>
             </div>
             {
                 isFormChanged 

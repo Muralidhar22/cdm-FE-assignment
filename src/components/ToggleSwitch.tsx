@@ -1,7 +1,16 @@
-const ToggleSwitch = ({ name, onChangeHandler, data }: { name: string, onChangeHandler: (e:React.ChangeEvent<HTMLInputElement>, value?: boolean | string) => void, data: boolean }) => {
+import { ChangeEvent } from "react";
+
+type PropsType = {
+  name: string
+  onChangeHandler: (e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>, isToggle?: boolean) => void
+  toggleValue: boolean
+}
+
+const ToggleSwitch = ({ name, onChangeHandler, toggleValue }: PropsType) => {
+  console.log(toggleValue)
     return(
         <label className="switch">
-            <input onChange={(e) => onChangeHandler(e, !data)} name={name} checked={data} type="checkbox" />
+            <input onChange={(e) => onChangeHandler(e, true)} name={name} checked={toggleValue} type="checkbox" />
             <span className="slider"></span>
             <style jsx>{`
                 .switch {

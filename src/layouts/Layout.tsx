@@ -48,7 +48,7 @@ const Layout = ({ children }: PropsType) => {
                         />
                     </span>
 
-                    <div className="absolute -top-3 -right-3">
+{   profileData.visibilityBadges &&                 <div className="absolute -top-3 -right-3">
                         <div className="relative">
                             <Image
                                 width={42}
@@ -58,7 +58,7 @@ const Layout = ({ children }: PropsType) => {
                             />
                           <span className="text-xs text-white absolute w-full h-full grid place-content-center inset-0">5</span>
                         </div>
-                    </div>
+                    </div>}
                 </span>
                     
                 </div>

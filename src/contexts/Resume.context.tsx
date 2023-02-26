@@ -4,6 +4,7 @@ import { nanoid } from "nanoid"
 import MyDate from "@/types/months"
 import { technologies } from "@/constants/technologies"
 import { TechType } from "@/types/technologies"
+import { fetchMultipleTech } from "@/utils/fetchTech"
 
 export type WorkExperienceType = {
     id: string
@@ -31,7 +32,7 @@ type ResumeDataType = {
 
 const INITIAL_RESUME_DATA : ResumeDataType = {
     description: "A self-driven, versatile, reliable, diligent individual who is calm a cheerful with a team-minded approach to work and getting things done. A student who is passionate and with a keen eye for design.",
-    techSkills: [{...technologies.htmlCss},{...technologies.js},{...technologies.reactjs},{...technologies.nextjs}],
+    techSkills: fetchMultipleTech(4),
     workExperience:[{
         id: nanoid(),
         company: "Google",

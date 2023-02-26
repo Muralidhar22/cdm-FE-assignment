@@ -2,28 +2,32 @@ import { useContext, createContext, ReactNode, useState, Dispatch, SetStateActio
 import { nanoid } from "nanoid"
 
 import { PortfolioDataType } from "@/types/portfolio"
-import { technologies } from "@/constants/technologies"
+import { fetchRandomTech ,fetchMultipleTech } from "@/utils/fetchTech"
+import { format } from "date-fns"
+
+const value = fetchRandomTech()
 
 const INITIAL_PORTFOLIO_DATA : PortfolioDataType = {
     playgrounds: [{
         id: nanoid(),
         participants: [],
         title: "playground title",
-        techStack: {...technologies.js},
-        hasDisplayed: true
+        techStack: fetchRandomTech(),
+        hasDisplayed: true,
+        createDateTime: Date.now()
     }],
-    certificates: [{id: nanoid(),issueDate: "Dec 16th, 2022", title:"Advanced theoretical Javascript", technology: {...technologies.js },type: "technology", hasDisplayed: true}],
+    certificates: [{id: nanoid(),certUrl: "" ,issueDate: `${format(new Date(), 'yyyy-MM-dd')}`, title:`Advanced theoretical ${value.displayName}`, technology: {...value }, certType: "technology", hasDisplayed: true}],
     projects: [{
         id: nanoid(),
         imageSrc: "/assets/portfolio.png",
-        techStack: [{...technologies.htmlCss},{...technologies.reactjs}],
+        techStack: fetchMultipleTech(2),
         title: "Personal Portfolio Website",
         projectUrl: "",
         hasDisplayed: true
     },{
         id: nanoid(),
         imageSrc: "",
-        techStack: [{...technologies.htmlCss},{...technologies.reactjs}],
+        techStack: fetchMultipleTech(2),
         title: "Personal Portfolio Website 2",
         projectUrl: "",
         hasDisplayed: true

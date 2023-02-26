@@ -2,36 +2,32 @@ import Image from "next/image";
 import { Dispatch, SetStateAction } from "react";
 
 import { TechType } from "@/types/technologies";
-import { PortfolioDataType } from "@/types/portfolio";
+import { PortfolioDataType, ProjectType } from "@/types/portfolio";
 
 type ProjectComponentPropsType =  {
-    img: string,
-    title: string,
-    techStack: TechType[]
-    isSelected?: boolean
+    data: ProjectType
     isOption?: boolean,
-    projectId?: string,
     setData?: Dispatch<SetStateAction<PortfolioDataType>>
 }
 
-const ProjectLayout = ({ img, title, techStack, isOption }: ProjectComponentPropsType ) => {
+const ProjectLayout = ({ data, isOption }: ProjectComponentPropsType ) => {
     return(
         <div className={`${!isOption && "p-4 border-2 rounded-lg border-zinc-100 bg-zinc-50"}`}>
             <div className="w-80 h-44 bg-[#C4C4C4] rounded">
-                    {img 
+                    {data.imageSrc 
                     &&
                     <Image
                         className="w-full h-full"
-                        src={img}
-                        alt={title}
+                        src={data.imageSrc}
+                        alt={data.title}
                         width={320}
                         height={170}
                     /> 
                 }
             </div>
-            <h3 className="font-bold text-lg">{title}</h3>
+            <h3 className="font-bold text-lg">{data.title}</h3>
             {
-                techStack.map((tech) => {
+                data.techStack.map((tech) => {
                     return (
                     <span key={tech.id}>
                         <Image
@@ -48,7 +44,7 @@ const ProjectLayout = ({ img, title, techStack, isOption }: ProjectComponentProp
     )
 }
 
-const ProjectContainer = ({ img, title, techStack, isOption, projectId, isSelected, setData }: ProjectComponentPropsType ) => {
+const ProjectContainer = ({ data, isOption, setData }: ProjectComponentPropsType ) => {
     
     const onClickHandler = () => {
         if(setData) {     
@@ -56,7 +52,7 @@ const ProjectContainer = ({ img, title, techStack, isOption, projectId, isSelect
                 {
                     ...prev,
                     projects: prev.projects.map((project) => (
-                        project.id === projectId ?
+                        project.id === data.id ?
                         { ...project, hasDisplayed: !project.hasDisplayed }
                         : project
                         ))
@@ -69,16 +65,16 @@ const ProjectContainer = ({ img, title, techStack, isOption, projectId, isSelect
         return (
             <div onClick={onClickHandler} role="option" className={`cursor-pointer p-4 border-2 rounded-lg
                 ${
-                    isSelected ? "border-primary-600 bg-primary-50" : "border-zinc-100 bg-zinc-50"
+                    data.hasDisplayed ? "border-primary-600 bg-primary-50" : "border-zinc-100 bg-zinc-50"
                 }
             `}>
-                <ProjectLayout img={img} title={title} techStack={techStack} isOption={isOption} />        
+                <ProjectLayout data={data} isOption={isOption} />        
             </div>
         )
     }
     
     return (
-        <ProjectLayout img={img} title={title} techStack={techStack} isOption={isOption} />
+        <ProjectLayout data={data} isOption={isOption} />
     )
 }
 

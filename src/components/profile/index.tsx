@@ -72,7 +72,7 @@ const Profile = () => {
                             alt="user profile picture"
                         />
                     </span>
-                        <div className="absolute -bottom-8 -right-6">
+{         profileData.visibilityBadges &&   <div className="absolute -bottom-8 -right-6">
                             <div className="relative">
                                 <Image
                                     width={80}
@@ -82,7 +82,7 @@ const Profile = () => {
                                 />
                             <span className="text-base text-white absolute w-full h-full grid place-content-center inset-0 -top-0.5">5</span>
                             </div>
-                        </div>
+                        </div>}
                 </span>
                 <div className="pt-6">
                     <div className="flex gap-1 items-center">

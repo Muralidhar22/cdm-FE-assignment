@@ -5,6 +5,8 @@ import SkillCheckBox from "../resume/SkillCheckBox";
 import { technologies } from "@/constants/technologies";
 import { useResumeContext, ResumeContextType } from "@/contexts/Resume.context";
 import UnSavedDialogBox from "../UnSavedDialogBox";
+import { findTechStackValue } from "@/utils/findTechStackValue";
+import toast from 'react-hot-toast';
 
 const ResumeForm = () => {
     const { resumeData, setResumeData } = useResumeContext() as ResumeContextType
@@ -20,11 +22,17 @@ const ResumeForm = () => {
         e.preventDefault()
         setResumeData(resumeFormData)
         setIsFormChanged(false)
+        toast.success("Saved Successfully!")
     }
     
     const onChangeSkillHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setResumeFormData((prev) => ({ ...prev, 
-            techSkills: [...prev.techSkills, { ...technologies[e.target.name] }] }))
+        const value = findTechStackValue(e.target.value)
+        if(e.target.checked) {
+            value && setResumeFormData((prev) => ({ ...prev, techSkills: [...prev.techSkills, { ...value }] }))
+        } else if(!e.target.checked) {
+            setResumeFormData((prev) => ({ ...prev,
+            techSkills: prev.techSkills.filter((skill) => skill.id !== e.target.value) }))
+        }
     }
     
     const onChangeTextHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -53,10 +61,11 @@ const ResumeForm = () => {
             <div>
                 <h2 className="text-lg font-semibold">Manage Tech Skills</h2>
                 <div className="flex flex-wrap gap-1">    
-                {Object.keys(technologies).map((skill) => (
+                {technologies.map((skill) => (
                     <SkillCheckBox 
-                        key={skill}
-                        skill={skill}
+                        key={skill.id}
+                        skillId={skill.id}
+                        skillName={skill.displayName}
                         hasTechSkill={hasTechSkill}
                         onChangeSkillHandler={onChangeSkillHandler}
                     />
@@ -66,7 +75,7 @@ const ResumeForm = () => {
         <div className="flex gap-2">
         <Link href="/" className="bg-zinc-100 text-sm text-zinc-900 rounded-lg py-2.5 font-semibold px-4">Cancel</Link>
         
-        <button type="submit" className="cursor-pointer text-white bg-primary-600 rounded-lg py-2.5 font-semibold px-4 text-sm">Save Changes</button>
+        <button type="submit" disabled={isFormChanged} className={`text-white ${isFormChanged ? "bg-primary-600" : "bg-primary-600/50"} rounded-lg py-2.5 font-semibold px-4 text-sm`}>Save Changes</button>
             </div>
             {
                 isFormChanged

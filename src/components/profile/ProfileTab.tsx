@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-import Portfolio from "./portfolio/Portfolio";
-import Resume from "./resume/Resume";
+import Portfolio from "../portfolio";
+import Resume from "../resume";
 
 const ProfileTab = () => {
     const [tab, setTab] = useState<"portfolio" | "resume">("portfolio")

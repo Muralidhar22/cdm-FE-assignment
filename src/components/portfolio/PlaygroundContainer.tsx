@@ -1,28 +1,36 @@
 import Image from "next/image";
 
 import { useProfileContext, ProfileContextType } from "@/contexts/Profile.context";
-import { technologies } from "@/constants/technologies";
-import { TechType } from "@/types/technologies";
+import { formatDistanceToNow } from "date-fns";
+import { PlaygroundType, PortfolioDataType } from "@/types/portfolio";
+import { Dispatch, SetStateAction } from "react";
 
 
-const PlaygroundContainer = ({ title, techStack }: { title: string, techStack: TechType }) => {
+type PropsType = {
+    isOption?: boolean
+    setData?: Dispatch<SetStateAction<PortfolioDataType>>
+    data: PlaygroundType
+}
+
+const PlaygroundLayout = ({ data, isOption }: { data: PlaygroundType, isOption?: boolean }) => {
     const { profileData } = useProfileContext() as ProfileContextType
-    return ( 
-        <div className="border-2 border-zinc-100 bg-zinc-50 flex rounded-lg p-4 items-start gap-2">
+    
+    return (
+        <div className={`${!isOption && "border-2 border-zinc-100 bg-zinc-50 rounded-lg"} flex p-4 items-start gap-2`}>
               <Image
-                src={techStack.imageSrc}
-                alt={techStack.displayName}
+                src={data.techStack.imageSrc}
+                alt={data.techStack.displayName}
                 width={45}
                 height={45}
             />
             <div className="flex justify-between flex-col">
-                <h3>{title}</h3>
+                <h3>{data.title}</h3>
                 <div>
                     <span>
-                        {techStack.displayName}&nbsp;
+                        {data.techStack.displayName}&nbsp;
                     </span>
                     <span></span>
-                    <span>&nbsp;1 min ago</span>
+                    <span>&nbsp;{formatDistanceToNow(data.createDateTime,{ addSuffix: true })}</span>
                 </div>
                 <div>
                     <span className="flex gap-2">
@@ -51,6 +59,37 @@ const PlaygroundContainer = ({ title, techStack }: { title: string, techStack: T
                 </div>
             </div>
         </div>
+    )
+}
+
+const PlaygroundContainer = ({ data, isOption, setData }: PropsType) => {
+
+    const onClickHandler = () => {
+        if(setData) {     
+            setData(prev => (
+                {
+                    ...prev,
+                    playgrounds: prev.playgrounds.map((pg) => (
+                        pg.id === data.id ?
+                        { ...pg, hasDisplayed: !pg.hasDisplayed }
+                        : pg
+                        ))
+                }
+            ))
+        }
+    }
+    
+    if(isOption) {
+        return (
+            <div onClick={onClickHandler} role="option" className={`border-2 rounded-lg cursor-pointer p-4 ${data.hasDisplayed ? "border-primary-600 bg-primary-50" : "border-zinc-100 bg-zinc-50"}`}>
+            <PlaygroundLayout data={data} isOption={isOption} />
+                
+            </div>
+        )
+    }
+    
+    return (
+        <PlaygroundLayout data={data} isOption={isOption} />
     )
 }
 
