@@ -7,32 +7,8 @@ import {
 } from "react";
 import { nanoid } from "nanoid";
 
-import MyDate from "@/types/months";
-import { TechType } from "@/types/technologies";
 import { fetchMultipleTech } from "@/utils/fetchTech";
-
-export type WorkExperienceType = {
-  id: string;
-  companyLogo?: string;
-  title: string;
-  location: string;
-  jobDescription: string;
-  jobResponsibilities: string[];
-  duration: {
-    from: MyDate;
-    to?: MyDate;
-    isPresent?: boolean;
-  };
-  company: string;
-};
-
-type ResumeDataType = {
-  description: string;
-  workExperience: WorkExperienceType[];
-  techSkills: TechType[];
-  interests: { id: string; name: string }[];
-  languages: { id: string; language: string; flagPicture?: string }[];
-};
+import { ResumeDataType } from "@/types/resume";
 
 const INITIAL_RESUME_DATA: ResumeDataType = {
   description:

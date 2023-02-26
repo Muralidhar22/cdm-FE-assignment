@@ -29,7 +29,7 @@ const CertificateContainer = ({ data, isOption, setData }: PropsType) => {
     if (data.certType === "achievement") {
       return (
         <Image
-          className="block"
+          className="w-10 h-10 block"
           width={40}
           height={40}
           alt={data.title}
@@ -39,7 +39,7 @@ const CertificateContainer = ({ data, isOption, setData }: PropsType) => {
     } else if (data.certType === "technology" && data.technology) {
       return (
         <Image
-          className="block"
+          className="w-10 h-10 block"
           width={40}
           height={40}
           alt={data.title}
@@ -62,28 +62,44 @@ const CertificateContainer = ({ data, isOption, setData }: PropsType) => {
             : "border-zinc-100 bg-zinc-50"
         }`}
       >
-        <div className="justify-between flex flex-col gap-2">
+        <div className="flex flex-col gap-5">
           {contentImage()}
-          <h3>{data.title}</h3>
           <div>
-            Issued on {format(new Date(data.issueDate), "MMM do, yyyy")}
+            <h3 className="text-zinc-900 font-semibold">{data.title}</h3>
+            <div className="text-sm text-zinc-500 mb-2">
+              Issued on {format(new Date(data.issueDate), "MMM do, yyyy")}
+            </div>
+            <Link
+              href={data.certUrl}
+              className="text-sm font-semibold text-zinc-500"
+              target={"_blank"}
+              rel="noreferrer noopener"
+            >
+              See credentials
+            </Link>
           </div>
-          <Link href={data.certUrl} target={"_blank"} rel="noreferrer noopener">
-            See credentials
-          </Link>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="border-2 border-zinc-100 bg-zinc-50 flex rounded-lg p-4 justify-between flex-col gap-2">
+    <div className="border-2 border-zinc-100 bg-zinc-50 flex rounded-lg p-4 flex-col gap-5">
       {contentImage()}
-      <h3>{data.title}</h3>
-      <div>Issued on {format(new Date(data.issueDate), "MMM do, yyyy")}</div>
-      <Link href={data.certUrl} target={"_blank"} rel="noreferrer noopener">
-        See credentials
-      </Link>
+      <div>
+        <h3 className="text-zinc-900 font-semibold">{data.title}</h3>
+        <div className="text-sm text-zinc-500 mb-2">
+          Issued on {format(new Date(data.issueDate), "MMM do, yyyy")}
+        </div>
+        <Link
+          href={data.certUrl}
+          className="text-sm font-semibold text-zinc-500"
+          target={"_blank"}
+          rel="noreferrer noopener"
+        >
+          See credentials
+        </Link>
+      </div>
     </div>
   );
 };

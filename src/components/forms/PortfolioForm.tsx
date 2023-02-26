@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import FormInputBox from "../FormInputBox";
+import FormSaveButton from "../FormSaveButton";
 import ProjectContainer from "../portfolio/ProjectContainer";
 import PlaygroundContainer from "../portfolio/PlaygroundContainer";
 import CertificateContainer from "../portfolio/CertificateContainer";
@@ -26,6 +27,7 @@ const PortfolioForm = () => {
   }, [portfolioFormData, portfolioData]);
 
   const onSubmitHandler = (e: React.FormEvent) => {
+    console.log("adsasdd");
     e.preventDefault();
     setPortfolioData(portfolioFormData);
     setIsFormChanged(false);
@@ -41,7 +43,7 @@ const PortfolioForm = () => {
   };
 
   return (
-    <div className="grow">
+    <div className="max-w-3xl mx-auto">
       <form onSubmit={onSubmitHandler}>
         <FormInputBox
           value={portfolioFormData.stats.longestStreak ?? ""}
@@ -74,8 +76,8 @@ const PortfolioForm = () => {
           placeholder="Enter your experience number"
         />
 
-        <section>
-          <div className="flex justify-between items-center">
+        <section className="mt-10">
+          <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold">Projects</h2>
             <Link
               href="/edit?new=project"
@@ -85,17 +87,19 @@ const PortfolioForm = () => {
               Add New Project
             </Link>
           </div>
-          {portfolioFormData.projects.map((project) => (
-            <ProjectContainer
-              key={project.id}
-              data={project}
-              isOption={true}
-              setData={setPortfolioFormData}
-            />
-          ))}
+          <div className="grid grid-cols-2 gap-5">
+            {portfolioFormData.projects.map((project) => (
+              <ProjectContainer
+                key={project.id}
+                data={project}
+                isOption={true}
+                setData={setPortfolioFormData}
+              />
+            ))}
+          </div>
         </section>
-        <section>
-          <div className="flex justify-between items-center">
+        <section className="mt-10">
+          <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold">Playgrounds</h2>
             <Link
               href="/edit?new=playground"
@@ -105,18 +109,19 @@ const PortfolioForm = () => {
               Create New Playground
             </Link>
           </div>
-
-          {portfolioFormData.playgrounds.map((pg) => (
-            <PlaygroundContainer
-              key={pg.id}
-              data={pg}
-              isOption={true}
-              setData={setPortfolioFormData}
-            />
-          ))}
+          <div className="grid grid-cols-2 gap-5">
+            {portfolioFormData.playgrounds.map((pg) => (
+              <PlaygroundContainer
+                key={pg.id}
+                data={pg}
+                isOption={true}
+                setData={setPortfolioFormData}
+              />
+            ))}
+          </div>
         </section>
-        <section>
-          <div className="flex justify-between items-center">
+        <section className="mt-10">
+          <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-bold">Certificates</h2>
             <Link
               href="/edit?new=certificate"
@@ -126,34 +131,19 @@ const PortfolioForm = () => {
               Add new certificate
             </Link>
           </div>
-          {portfolioFormData.certificates.map((cert) => (
-            <CertificateContainer
-              key={cert.id}
-              data={cert}
-              setData={setPortfolioFormData}
-              isOption={true}
-            />
-          ))}
+          <div className="grid grid-cols-2 gap-5">
+            {portfolioFormData.certificates.map((cert) => (
+              <CertificateContainer
+                key={cert.id}
+                data={cert}
+                setData={setPortfolioFormData}
+                isOption={true}
+              />
+            ))}
+          </div>
         </section>
 
-        <div className="flex gap-2">
-          <Link
-            href="/"
-            className="bg-zinc-100 text-sm text-zinc-900 rounded-lg py-2.5 font-semibold px-4"
-          >
-            Cancel
-          </Link>
-
-          <button
-            type="submit"
-            disabled={isFormChanged}
-            className={`text-white ${
-              isFormChanged ? "bg-primary-600" : "bg-primary-600/50"
-            } rounded-lg py-2.5 font-semibold px-4 text-sm`}
-          >
-            Save Changes
-          </button>
-        </div>
+        <FormSaveButton isFormChanged={isFormChanged} />
         {isFormChanged && <UnSavedDialogBox />}
       </form>
     </div>

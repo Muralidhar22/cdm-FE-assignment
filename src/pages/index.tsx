@@ -11,7 +11,7 @@ export default function Home() {
         <meta name="description" content="Codedamn profile for assignment" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <div className="p-2">
+      <div className="max-w-3xl mx-auto mt-12">
         <Profile />
         <ProfileTab />
       </div>

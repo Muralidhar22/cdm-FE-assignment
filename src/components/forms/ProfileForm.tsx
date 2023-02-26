@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect, ChangeEvent } from "react";
-import Link from "next/link";
 import Image from "next/image";
 
 import UnSavedDialogBox from "../UnSavedDialogBox";
 import FormInputBox from "@/components/FormInputBox";
+import FormSaveButton from "../FormSaveButton";
 import ToggleSwitch from "@/components/ToggleSwitch";
 import {
   useProfileContext,
@@ -71,7 +71,7 @@ const ProfileForm = () => {
   };
 
   return (
-    <div className="grow">
+    <div className="max-w-3xl mx-auto">
       <div className="flex gap-4 items-center">
         <span className="rounded-full overflow-hidden w-20 h-20">
           <Image
@@ -207,24 +207,7 @@ const ProfileForm = () => {
           </div>
         </section>
 
-        <div className="flex gap-2">
-          <Link
-            href="/"
-            className="bg-zinc-100 text-sm text-zinc-900 rounded-lg py-2.5 font-semibold px-4"
-          >
-            Cancel
-          </Link>
-
-          <button
-            type="submit"
-            disabled={isFormChanged}
-            className={`text-white ${
-              isFormChanged ? "bg-primary-600" : "bg-primary-600/50"
-            } rounded-lg py-2.5 font-semibold px-4 text-sm`}
-          >
-            Save Changes
-          </button>
-        </div>
+        <FormSaveButton isFormChanged={isFormChanged} />
         {isFormChanged && <UnSavedDialogBox />}
       </form>
     </div>

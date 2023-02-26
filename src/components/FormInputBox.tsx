@@ -28,8 +28,8 @@ const FormInputBox = ({
   required,
 }: PropsType) => {
   return (
-    <div className="w-full flex flex-col gap-1">
-      <label className="block font-semibold text-sm" htmlFor={id}>
+    <div className="w-full flex flex-col gap-1 mb-4">
+      <label className="block w-3xl w-full font-semibold text-sm" htmlFor={id}>
         {label.charAt(0).toUpperCase() + label.slice(1)}
       </label>
       <input

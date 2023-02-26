@@ -10,4 +10,5 @@ export type ProfileDataType = {
   visibilityBadges: boolean;
   isOpenForJob: boolean;
   location: string;
+  coverImage: string;
 };

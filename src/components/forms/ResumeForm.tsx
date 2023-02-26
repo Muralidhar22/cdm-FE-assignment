@@ -1,6 +1,6 @@
-import Link from "next/link";
 import { useState, useEffect } from "react";
 
+import FormSaveButton from "../FormSaveButton";
 import SkillCheckBox from "../resume/SkillCheckBox";
 import { technologies } from "@/constants/technologies";
 import { useResumeContext, ResumeContextType } from "@/contexts/Resume.context";
@@ -59,7 +59,7 @@ const ResumeForm = () => {
   };
 
   return (
-    <div className="grow">
+    <div className="max-w-3xl mx-auto">
       <h1 className="text-2xl font-semibold">Resume Information</h1>
       <form onSubmit={onSubmitHandler}>
         <div>
@@ -90,24 +90,7 @@ const ResumeForm = () => {
             ))}
           </div>
         </div>
-        <div className="flex gap-2">
-          <Link
-            href="/"
-            className="bg-zinc-100 text-sm text-zinc-900 rounded-lg py-2.5 font-semibold px-4"
-          >
-            Cancel
-          </Link>
-
-          <button
-            type="submit"
-            disabled={isFormChanged}
-            className={`text-white ${
-              isFormChanged ? "bg-primary-600" : "bg-primary-600/50"
-            } rounded-lg py-2.5 font-semibold px-4 text-sm`}
-          >
-            Save Changes
-          </button>
-        </div>
+        <FormSaveButton isFormChanged={isFormChanged} />
         {isFormChanged && <UnSavedDialogBox />}
       </form>
     </div>

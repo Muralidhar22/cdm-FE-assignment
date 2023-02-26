@@ -35,7 +35,7 @@ const Edit = () => {
   }, [router.query, query.details, query.new]);
 
   return (
-    <div className="flex-wrap flex gap-4 items-start">
+    <div className="flex-wrap flex justify-between items-start mt-12">
       <aside className="flex gap-4 text-base flex-col bg-zinc-50 border-2 border-zinc-100 rounded-2xl py-6 overflow-hidden">
         <nav>
           <NavLink

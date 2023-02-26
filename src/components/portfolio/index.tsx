@@ -28,36 +28,38 @@ const Portfolio = () => {
 
   return (
     <div>
-      <section className="grid gap-3">
-        <h2 className="text-2xl font-bold">Stats</h2>
-        <StatusBox
-          data={portfolioData.stats.longestStreak ?? 0}
-          img="/assets/Lightning.png"
-          label="longest streak"
-        />
-        {profileData.visibilityXP && (
+      <section className="mt-10">
+        <h2 className="text-2xl font-bold mb-6">Stats</h2>
+        <div className="grid grid-cols-2 gap-5">
           <StatusBox
-            data={portfolioData.stats.experience ?? 0}
-            img="/assets/StarFour.png"
-            label="experience points"
+            data={portfolioData.stats.longestStreak ?? 0}
+            img="/assets/lightning.svg"
+            label="longest streak"
           />
-        )}
+          {profileData.visibilityXP && (
+            <StatusBox
+              data={portfolioData.stats.experience ?? 0}
+              img="/assets/starfour.svg"
+              label="experience points"
+            />
+          )}
 
-        {profileData.visibilityBadges && (
+          {profileData.visibilityBadges && (
+            <StatusBox
+              data={portfolioData.stats.league}
+              img="/assets/cup.svg"
+              label="current league"
+            />
+          )}
           <StatusBox
-            data={portfolioData.stats.league}
-            img="/assets/cup.png"
-            label="current league"
+            data={portfolioData.stats.longestStreak ?? 0}
+            img="/assets/heartbeat.svg"
+            label="karma points"
           />
-        )}
-        <StatusBox
-          data={portfolioData.stats.longestStreak ?? 0}
-          img="/assets/Heartbeat.png"
-          label="karma points"
-        />
+        </div>
       </section>
-      <section>
-        <div className="flex justify-between items-center">
+      <section className="mt-10">
+        <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold">Projects</h2>
           <Link
             href="/edit?details=portfolio"
@@ -66,21 +68,24 @@ const Portfolio = () => {
             Create New Project
           </Link>
         </div>
+
         {portfolioData.projects.length > 0 && isAnyProjectsForDisplay ? (
-          portfolioData.projects.map(
-            (project) =>
-              project.hasDisplayed && (
-                <ProjectContainer key={project.id} data={project} />
-              )
-          )
+          <div className="gap-5 grid grid-cols-2">
+            {portfolioData.projects.map(
+              (project) =>
+                project.hasDisplayed && (
+                  <ProjectContainer key={project.id} data={project} />
+                )
+            )}
+          </div>
         ) : (
           <span className="p-6 text-center border-dashed border-2 rounded-md block text-semibold text-zinc-400">
             Add your projects to showcase!
           </span>
         )}
       </section>
-      <section>
-        <div className="flex justify-between items-center">
+      <section className="mt-10">
+        <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold">Playgrounds</h2>
           <Link
             href="/edit?details=portfolio"
@@ -89,18 +94,21 @@ const Portfolio = () => {
             Create New Playground
           </Link>
         </div>
+
         {portfolioData.playgrounds.length > 0 && isAnyPgsForDisplay ? (
-          portfolioData.playgrounds.map((pg) => (
-            <PlaygroundContainer key={pg.id} data={pg} />
-          ))
+          <div className="grid grid-cols-2 gap-5">
+            {portfolioData.playgrounds.map((pg) => (
+              <PlaygroundContainer key={pg.id} data={pg} />
+            ))}
+          </div>
         ) : (
           <span className="p-6 text-center border-dashed border-2 rounded-md block text-semibold text-zinc-400">
             Add your playgrounds to showcase!
           </span>
         )}
       </section>
-      <section>
-        <div className="flex justify-between items-center">
+      <section className="mt-10">
+        <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold">Certificates</h2>
           <Link
             href="/edit?details=portfolio"
@@ -110,9 +118,11 @@ const Portfolio = () => {
           </Link>
         </div>
         {portfolioData.certificates.length > 0 && isAnyCertsForDisplay ? (
-          portfolioData.certificates.map((cert) => (
-            <CertificateContainer key={cert.title} data={cert} />
-          ))
+          <div className="grid grid-cols-2 gap-5">
+            {portfolioData.certificates.map((cert) => (
+              <CertificateContainer key={cert.title} data={cert} />
+            ))}
+          </div>
         ) : (
           <span className="p-6 text-center border-dashed border-2 rounded-md block text-semibold text-zinc-400">
             Add your certificates to showcase!

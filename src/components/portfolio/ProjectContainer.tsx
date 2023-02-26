@@ -16,10 +16,10 @@ const ProjectLayout = ({ data, isOption }: ProjectComponentPropsType) => {
         !isOption && "p-4 border-2 rounded-lg border-zinc-100 bg-zinc-50"
       }`}
     >
-      <div className="w-80 h-44 bg-[#C4C4C4] rounded">
+      <div className="h-44 bg-[#C4C4C4] rounded">
         {data.imageSrc && (
           <Image
-            className="w-full h-full"
+            className="w-full h-full block"
             src={data.imageSrc}
             alt={data.title}
             width={320}
@@ -27,20 +27,31 @@ const ProjectLayout = ({ data, isOption }: ProjectComponentPropsType) => {
           />
         )}
       </div>
-      <h3 className="font-bold text-lg">{data.title}</h3>
-      {data.techStack.map((tech) => {
-        return (
-          <span key={tech.id}>
-            <Image
-              src={tech.imageSrc}
-              alt={tech.displayName}
-              width={45}
-              height={45}
-            />
-            <span>{tech.displayName}</span>
-          </span>
-        );
-      })}
+      <h3 className="font-bold mt-5 text-lg">{data.title}</h3>
+      <div className="flex gap-1.5 pt-2.5 overflow-hidden text-ellipsis">
+        {data.techStack.map((tech, idx) => {
+          return (
+            <span key={tech.id} className="flex gap-1.5 items-center">
+              <span className="flex gap-0.5 items-center">
+                <Image
+                  src={tech.imageSrc}
+                  alt={tech.displayName}
+                  width={20}
+                  height={20}
+                />
+                <span className="text-zinc-500 text-sm font-xl flex item-center">
+                  {tech.displayName}
+                </span>
+              </span>
+              {idx < data.techStack.length - 1 && (
+                <span className="text-zinc-500 font-bold text-base">
+                  &bull;
+                </span>
+              )}
+            </span>
+          );
+        })}
+      </div>
     </div>
   );
 };

@@ -4,6 +4,7 @@ import {
   ReactNode,
   useState,
   Dispatch,
+  SetStateAction,
 } from "react";
 import { ProfileDataType } from "@/types/profile";
 
@@ -20,11 +21,12 @@ const INITIAL_PROFILE_DATA: ProfileDataType = {
   visibilityBadges: true,
   isOpenForJob: true,
   location: "India",
+  coverImage: "/assets/profile-default-bg.png",
 };
 
 export type ProfileContextType = {
   profileData: ProfileDataType;
-  setProfileData: Dispatch<ProfileDataType>;
+  setProfileData: Dispatch<SetStateAction<ProfileDataType>>;
 };
 
 type ProfileProviderPropsType = {

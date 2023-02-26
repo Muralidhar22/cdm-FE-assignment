@@ -37,7 +37,7 @@ const Layout = ({ children }: PropsType) => {
           </span>
           <span className="flex gap-0.25 items-center">
             <Image
-              src="/assets/Lightning.png"
+              src="/assets/lightning.svg"
               alt="lightning icon"
               width={42}
               height={42}

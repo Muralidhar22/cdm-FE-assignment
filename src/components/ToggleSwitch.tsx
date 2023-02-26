@@ -10,7 +10,6 @@ type PropsType = {
 };
 
 const ToggleSwitch = ({ name, onChangeHandler, toggleValue }: PropsType) => {
-  console.log(toggleValue);
   return (
     <label className="switch">
       <input

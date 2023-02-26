@@ -8,7 +8,7 @@ const ProfileTab = () => {
 
   return (
     <>
-      <div className="border-2 border-zinc-200 flex justify-start gap-10 py-2 px-6 rounded-xl">
+      <div className="border-2 border-zinc-200 flex justify-start gap-10 py-2 px-6 rounded-xl mt-10">
         <button
           className={`font-medium rounded-lg py-2 px-4 ${
             tab === "portfolio"

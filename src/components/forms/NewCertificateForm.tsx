@@ -113,6 +113,7 @@ const NewCertificateForm = () => {
               Select tech stack for playground:
             </label>
             <select
+              required
               onChange={(e) => onChangeSelectHandler(e, "techStack")}
               name="techStack"
               value={formData.technology?.id}

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import Link from "next/link";
 
 import FormInputBox from "../FormInputBox";
+import FormSaveButton from "../FormSaveButton";
 import {
   useSocialsContext,
   SocialsContextType,
@@ -37,7 +37,7 @@ const SocialsForm = () => {
   };
 
   return (
-    <div className="grow">
+    <div className="min-w-3xl mx-auto">
       <form onSubmit={onSubmitHandler}>
         <FormInputBox
           required={false}
@@ -99,24 +99,7 @@ const SocialsForm = () => {
           name="behance"
           type="url"
         />
-        <div className="flex gap-2">
-          <Link
-            href="/"
-            className="bg-zinc-100 text-sm text-zinc-900 rounded-lg py-2.5 font-semibold px-4"
-          >
-            Cancel
-          </Link>
-
-          <button
-            type="submit"
-            disabled={isFormChanged}
-            className={`text-white ${
-              isFormChanged ? "bg-primary-600" : "bg-primary-600/50"
-            } rounded-lg py-2.5 font-semibold px-4 text-sm`}
-          >
-            Save Changes
-          </button>
-        </div>
+        <FormSaveButton isFormChanged={isFormChanged} />
         {isFormChanged && <UnSavedDialogBox />}
       </form>
     </div>
