@@ -1,4 +1,5 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
+import { nanoid } from "nanoid";
 
 type PropsType = {
   name: string;
@@ -10,69 +11,32 @@ type PropsType = {
 };
 
 const ToggleSwitch = ({ name, onChangeHandler, toggleValue }: PropsType) => {
+  const [checked, setChecked] = useState<boolean>(toggleValue);
+  const id = nanoid();
+
   return (
-    <label className="switch">
+    <label
+      htmlFor={id}
+      className={`w-11 transition-all h-6 overflow-hidden rounded-full relative p-1 cursor-pointer ${
+        checked ? "bg-primary-600" : "bg-zinc-300"
+      }`}
+    >
       <input
-        onChange={(e) => onChangeHandler(e, true)}
+        id={id}
+        onChange={(e) => {
+          setChecked((prev) => !prev);
+          onChangeHandler(e, true);
+        }}
         name={name}
         checked={toggleValue}
         type="checkbox"
+        className="hidden"
       />
-      <span className="slider"></span>
-      <style jsx>{`
-        .switch {
-          position: relative;
-          display: inline-block;
-          width: 55px;
-          height: 30px;
-        }
-
-        .switch input {
-          opacity: 0;
-          width: 0;
-          height: 0;
-        }
-
-        .slider {
-          position: absolute;
-          cursor: pointer;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-color: #ccc;
-          -webkit-transition: 0.4s;
-          transition: 0.4s;
-          border-radius: 34px;
-        }
-
-        .slider:before {
-          position: absolute;
-          content: "";
-          height: 22px;
-          width: 22px;
-          left: 4px;
-          bottom: 4px;
-          background-color: white;
-          -webkit-transition: 0.4s;
-          border-radius: 50%;
-          transition: 0.4s;
-        }
-
-        input:checked + .slider {
-          background-color: #4f46e5;
-        }
-
-        input:focus + .slider {
-          box-shadow: 0 0 1px #4f46e5;
-        }
-
-        input:checked + .slider:before {
-          -webkit-transform: translateX(26px);
-          -ms-transform: translateX(26px);
-          transform: translateX(26px);
-        }
-      `}</style>
+      <span
+        className={`w-4 h-4 rounded-full transition-all bg-white block relative ${
+          checked && "translate-x-5"
+        }`}
+      ></span>
     </label>
   );
 };

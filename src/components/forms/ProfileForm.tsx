@@ -83,7 +83,7 @@ const ProfileForm = () => {
         </span>
         <button
           onClick={uploadProfilePicture}
-          className="bg-[#4F46E5] text-white p-2.5 rounded-lg text-sm"
+          className="bg-primary-600 text-white p-2.5 rounded-lg text-sm"
         >
           Upload new picture
         </button>

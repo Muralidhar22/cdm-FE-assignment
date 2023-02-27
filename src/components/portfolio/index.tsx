@@ -63,7 +63,7 @@ const Portfolio = () => {
           <h2 className="text-2xl font-bold">Projects</h2>
           <Link
             href="/edit?details=portfolio"
-            className="font-semibold text-[#4F46E5]"
+            className="font-semibold text-primary-600"
           >
             Create New Project
           </Link>
@@ -89,7 +89,7 @@ const Portfolio = () => {
           <h2 className="text-2xl font-bold">Playgrounds</h2>
           <Link
             href="/edit?details=portfolio"
-            className="font-semibold text-[#4F46E5]"
+            className="font-semibold text-primary-600"
           >
             Create New Playground
           </Link>
@@ -112,7 +112,7 @@ const Portfolio = () => {
           <h2 className="text-2xl font-bold">Certificates</h2>
           <Link
             href="/edit?details=portfolio"
-            className="font-semibold text-[#4F46E5]"
+            className="font-semibold text-primary-600"
           >
             Add new certificate
           </Link>
