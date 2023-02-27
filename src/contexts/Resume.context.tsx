@@ -9,11 +9,12 @@ import { nanoid } from "nanoid";
 
 import { fetchMultipleTech } from "@/utils/fetchTech";
 import { ResumeDataType } from "@/types/resume";
+import { TechType } from "@/types/technologies";
 
 const INITIAL_RESUME_DATA: ResumeDataType = {
   description:
     "A self-driven, versatile, reliable, diligent individual who is calm a cheerful with a team-minded approach to work and getting things done. A student who is passionate and with a keen eye for design.",
-  techSkills: fetchMultipleTech(4),
+  techSkills: fetchMultipleTech(4) as TechType[],
   workExperience: [
     {
       id: nanoid(),
