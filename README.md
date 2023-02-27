@@ -19,8 +19,10 @@
 
 ## Tech Stack:
 
-- NextJs, ReactJs, TailwindCSS
-- State Management: `[useContext](https://beta.reactjs.org/reference/react/useContext) and [useState](https://beta.reactjs.org/reference/react/useState) hooks`
+- [NextJs](https://nextjs.org/)
+- [ReactJs](https://reactjs.org/)
+- [Typescript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
 
 ### Formatting and Linting tools:
 
