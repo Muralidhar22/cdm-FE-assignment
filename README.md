@@ -17,6 +17,14 @@
 - Edit profile information such as name, profile picture etc.
 - Add and remove skills shown under resume
 
+## preview
+![image](https://user-images.githubusercontent.com/33935339/221535813-a9169785-aecf-4f86-a20c-f4f81f25c3ac.png)
+
+![image](https://user-images.githubusercontent.com/33935339/221536015-709a29ce-942d-4ddf-92e9-54edf23ada2f.png)
+
+![image](https://user-images.githubusercontent.com/33935339/221536125-d8ba16e3-86d6-4ea2-9c86-fc0e81e80212.png)
+
+
 ## Tech Stack:
 
 - [NextJs](https://nextjs.org/)
