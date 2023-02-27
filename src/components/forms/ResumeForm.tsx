@@ -59,10 +59,10 @@ const ResumeForm = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto">
-      <h1 className="text-2xl font-semibold">Resume Information</h1>
+    <div className="w-3/4 mx-auto">
+      <h1 className="text-2xl font-semibold mb-5">Resume Information</h1>
       <form onSubmit={onSubmitHandler}>
-        <div>
+        <div className="flex flex-col gap-3 mb-3">
           <label htmlFor="about" className="block font-semibold text-sm">
             About
           </label>
@@ -76,9 +76,9 @@ const ResumeForm = () => {
           ></textarea>
           <span className="text-zinc-500">Tell us about yourself</span>
         </div>
-        <div>
+        <div className="flex flex-col gap-5">
           <h2 className="text-lg font-semibold">Manage Tech Skills</h2>
-          <div className="flex flex-wrap gap-1">
+          <div className="flex flex-wrap gap-5">
             {technologies.map((skill) => (
               <SkillCheckBox
                 key={skill.id}

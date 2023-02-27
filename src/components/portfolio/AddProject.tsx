@@ -8,12 +8,14 @@ import {
 const AddProject = () => {
   const { portfolioData } = usePortfolioContext() as PortfolioContextType;
   return (
-    <div className="grow">
-      <h1 className="font-bold">Add New Project</h1>
+    <div className="max-w-3xl mx-auto flex flex-col gap-5">
+      <h1 className="font-bold text-xl">Add New Project</h1>
       <NewProjectForm />
-      {portfolioData.projects.map((project) => (
-        <ProjectContainer key={project.id} data={project} />
-      ))}
+      <div className="grid grid-cols-2 gap-5">
+        {portfolioData.projects.map((project) => (
+          <ProjectContainer key={project.id} data={project} />
+        ))}
+      </div>
     </div>
   );
 };

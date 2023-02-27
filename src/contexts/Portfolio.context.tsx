@@ -9,10 +9,11 @@ import {
 import { nanoid } from "nanoid";
 
 import { PortfolioDataType } from "@/types/portfolio";
-import { fetchRandomTech, fetchMultipleTech } from "@/utils/fetchTech";
+import { fetchMultipleTech } from "@/utils/fetchTech";
 import { format } from "date-fns";
+import { TechType } from "@/types/technologies";
 
-const value = fetchRandomTech();
+const value = fetchMultipleTech(1) as TechType;
 
 const INITIAL_PORTFOLIO_DATA: PortfolioDataType = {
   playgrounds: [
@@ -20,7 +21,7 @@ const INITIAL_PORTFOLIO_DATA: PortfolioDataType = {
       id: nanoid(),
       participants: [],
       title: "playground title",
-      techStack: fetchRandomTech(),
+      techStack: value as TechType,
       hasDisplayed: true,
       createDateTime: Date.now(),
     },
@@ -40,7 +41,7 @@ const INITIAL_PORTFOLIO_DATA: PortfolioDataType = {
     {
       id: nanoid(),
       imageSrc: "/assets/portfolio.png",
-      techStack: fetchMultipleTech(2),
+      techStack: fetchMultipleTech(2) as TechType[],
       title: "Personal Portfolio Website",
       projectUrl: "",
       hasDisplayed: true,
@@ -48,7 +49,7 @@ const INITIAL_PORTFOLIO_DATA: PortfolioDataType = {
     {
       id: nanoid(),
       imageSrc: "",
-      techStack: fetchMultipleTech(2),
+      techStack: fetchMultipleTech(2) as TechType[],
       title: "Personal Portfolio Website 2",
       projectUrl: "",
       hasDisplayed: true,
@@ -75,6 +76,7 @@ const PortfolioContext = createContext<PortfolioContextType | null>(null);
 
 export const PortfolioProvider = ({ children }: PortfolioProviderPropsType) => {
   const [portfolioData, setPortfolioData] = useState(INITIAL_PORTFOLIO_DATA);
+
   const value = { portfolioData, setPortfolioData };
   return (
     <PortfolioContext.Provider value={value}>

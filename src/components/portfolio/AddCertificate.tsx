@@ -9,12 +9,14 @@ const AddCertificate = () => {
   const { portfolioData } = usePortfolioContext() as PortfolioContextType;
 
   return (
-    <div className="grow">
+    <div className="w-1/2 mx-auto flex flex-col gap-5">
+      <h1 className="font-bold text-xl">Add certificate</h1>
       <NewCertificateForm />
-
-      {portfolioData.certificates.map((cert) => (
-        <CertificateContainer key={cert.id} data={cert} />
-      ))}
+      <div className="grid grid-cols-2 gap-5">
+        {portfolioData.certificates.map((cert) => (
+          <CertificateContainer key={cert.id} data={cert} />
+        ))}
+      </div>
     </div>
   );
 };

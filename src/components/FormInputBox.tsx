@@ -34,7 +34,7 @@ const FormInputBox = ({
       </label>
       <input
         required={required}
-        className={`block w-full px-3 py-3.5 rounded-lg border-2 border-zinc-100 focus:${focusBorderClr}`}
+        className={`block w-full px-3 py-3.5 rounded-lg border-2 focus:outline-none focus:${focusBorderClr}`}
         onChange={(e) => onChangeHandler(e)}
         type={type}
         name={name}

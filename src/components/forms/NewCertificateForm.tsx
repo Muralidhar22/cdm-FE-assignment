@@ -98,7 +98,7 @@ const NewCertificateForm = () => {
         <select
           onChange={(e) => onChangeSelectHandler(e, "certType")}
           value={formData.certType}
-          className="w-full px-3 py-3.5 rounded-lg border-2 border-zinc-100 focus:border-primary-600 cursor-pointer"
+          className="w-full px-3 py-3.5 rounded-lg border-2 border-zinc-100 focus:outline-none focus:border-primary-600 cursor-pointer mb-4"
           id="techStack"
         >
           <option value="" disabled>
@@ -117,7 +117,7 @@ const NewCertificateForm = () => {
               onChange={(e) => onChangeSelectHandler(e, "techStack")}
               name="techStack"
               value={formData.technology?.id}
-              className="w-full px-3 py-3.5 rounded-lg border-2 border-zinc-100 focus:border-primary-600 cursor-pointer"
+              className="w-full px-3 py-3.5 rounded-lg border-2 border-zinc-100 focus:border-primary-600 cursor-pointer focus:outline-none border-2 border-zinc-200"
               id="techStack"
             >
               <option value="" disabled>
@@ -131,7 +131,7 @@ const NewCertificateForm = () => {
             </select>
           </>
         )}
-        <div className="flex gap-2">
+        <div className="flex gap-2 justify-end mt-3">
           <Link
             shallow
             href="/edit?details=portfolio"

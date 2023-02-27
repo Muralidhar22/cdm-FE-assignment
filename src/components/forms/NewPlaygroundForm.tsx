@@ -15,11 +15,11 @@ import toast from "react-hot-toast";
 
 const INITIAL_FORM_DATA: PlaygroundType = {
   hasDisplayed: false,
-  id: nanoid(),
   participants: [],
   techStack: { id: "", displayName: "", imageSrc: "" },
   title: "",
   createDateTime: 0,
+  id: "",
 };
 
 const NewPlaygroundForm = () => {
@@ -27,7 +27,8 @@ const NewPlaygroundForm = () => {
   const { setPortfolioData } = usePortfolioContext() as PortfolioContextType;
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: [e.target.value] }));
+    console.log();
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const onChangeTechStackHandler = (
@@ -44,7 +45,7 @@ const NewPlaygroundForm = () => {
         ...prev,
         playgrounds: [
           ...prev.playgrounds,
-          { ...formData, createDateTime: new Date() },
+          { ...formData, id: nanoid(), createDateTime: new Date() },
         ],
       }));
     }
@@ -71,8 +72,11 @@ const NewPlaygroundForm = () => {
           onChange={onChangeTechStackHandler}
           value={formData.techStack.id}
           id="techStack"
-          className="w-full px-3 py-3.5 rounded-lg border-2 border-zinc-100 focus:border-primary-600 cursor-pointer"
+          className="w-full focus:outline-none  px-3 py-3.5 rounded-lg border-2 border-zinc-100 focus:border-primary-600 cursor-pointer"
         >
+          <option value="" disabled>
+            --choose option--
+          </option>
           {technologies.map((tech) => (
             <option key={tech.id} value={tech.id}>
               {tech.displayName}
@@ -80,11 +84,11 @@ const NewPlaygroundForm = () => {
           ))}
         </select>
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 justify-end mt-3">
           <Link
             shallow
             href="/edit?details=portfolio"
-            className="bg-zinc-100 text-sm text-zinc-900 rounded-lg py-2.5 font-semibold px-4"
+            className="bg-zinc-100 text-sm text-zinc-900 rounded-lg py-2.5 font-semibold px-4 border-2 border-zinc-200"
           >
             Cancel
           </Link>

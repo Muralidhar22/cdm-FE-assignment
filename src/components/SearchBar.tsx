@@ -13,8 +13,8 @@ const SearchBar = () => {
     >
       <Image
         src="/assets/search.svg"
-        width="16"
-        height="16"
+        width="20"
+        height="20"
         alt="search icon"
         className="cursor-pointer mr-1"
       />
@@ -28,7 +28,6 @@ const SearchBar = () => {
       />
       <span className="bg-zinc-100 rounded-lg px-1 py-2">
         <select
-          value="courses"
           className="text-zinc-500 bg-transparent outline-none cursor-pointer"
           name="search-selection"
           id=""

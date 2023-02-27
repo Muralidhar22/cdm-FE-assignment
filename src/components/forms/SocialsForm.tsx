@@ -37,7 +37,7 @@ const SocialsForm = () => {
   };
 
   return (
-    <div className="min-w-3xl mx-auto">
+    <div className="w-3/4">
       <form onSubmit={onSubmitHandler}>
         <FormInputBox
           required={false}

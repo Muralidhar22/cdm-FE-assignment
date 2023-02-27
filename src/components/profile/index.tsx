@@ -63,7 +63,7 @@ const Profile = () => {
 
   return (
     <div className="grid-rows-2 relative">
-      <div className="rounded-t-xl overflow-hidden h-52">
+      <div className="rounded-t-xl overflow-hidden h-50">
         <Image
           className="w-full block"
           src={profileData.coverImage}

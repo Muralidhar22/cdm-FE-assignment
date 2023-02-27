@@ -101,7 +101,7 @@ const NewProjectForm = () => {
         <label htmlFor="techStack" className="font-semibold text-sm">
           Tech stack:
         </label>
-        <div className="flex flex-wrap gap-1">
+        <div className="flex flex-wrap gap-2 mb-2">
           {formData.techStack?.map((tech) => (
             <span
               key={tech.id}
@@ -121,7 +121,7 @@ const NewProjectForm = () => {
           value=""
           onChange={addTech}
           required={formData.techStack.length < 1}
-          className="w-full px-3 py-3.5 rounded-lg border-2 border-zinc-100 focus:border-primary-600 cursor-pointer"
+          className="w-full px-3 py-3.5 rounded-lg border-2 border-zinc-100 focus:border-primary-600 focus:outline-none cursor-pointer"
           name="techStack"
           id="techStack"
         >
@@ -138,11 +138,11 @@ const NewProjectForm = () => {
             </>
           ))}
         </select>
-        <div className="flex gap-2">
+        <div className="flex gap-2 mt-3 justify-end">
           <Link
             href="/edit?details=portfolio"
             shallow
-            className="bg-zinc-100 text-sm text-zinc-900 rounded-lg py-2.5 font-semibold px-4"
+            className="bg-zinc-100 text-sm text-zinc-900 rounded-lg py-2.5 font-semibold px-4 border-2 border-zinc-200"
           >
             Cancel
           </Link>

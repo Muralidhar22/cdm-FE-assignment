@@ -97,9 +97,10 @@ const Portfolio = () => {
 
         {portfolioData.playgrounds.length > 0 && isAnyPgsForDisplay ? (
           <div className="grid grid-cols-2 gap-5">
-            {portfolioData.playgrounds.map((pg) => (
-              <PlaygroundContainer key={pg.id} data={pg} />
-            ))}
+            {portfolioData.playgrounds.map(
+              (pg) =>
+                pg.hasDisplayed && <PlaygroundContainer key={pg.id} data={pg} />
+            )}
           </div>
         ) : (
           <span className="p-6 text-center border-dashed border-2 rounded-md block text-semibold text-zinc-400">
@@ -119,9 +120,12 @@ const Portfolio = () => {
         </div>
         {portfolioData.certificates.length > 0 && isAnyCertsForDisplay ? (
           <div className="grid grid-cols-2 gap-5">
-            {portfolioData.certificates.map((cert) => (
-              <CertificateContainer key={cert.title} data={cert} />
-            ))}
+            {portfolioData.certificates.map(
+              (cert) =>
+                cert.hasDisplayed && (
+                  <CertificateContainer key={cert.title} data={cert} />
+                )
+            )}
           </div>
         ) : (
           <span className="p-6 text-center border-dashed border-2 rounded-md block text-semibold text-zinc-400">

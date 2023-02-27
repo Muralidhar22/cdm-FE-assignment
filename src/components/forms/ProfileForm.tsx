@@ -71,8 +71,8 @@ const ProfileForm = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto">
-      <div className="flex gap-4 items-center">
+    <div className="w-3/4 mx-auto">
+      <div className="flex gap-4 items-center mb-3">
         <span className="rounded-full overflow-hidden w-20 h-20">
           <Image
             src={profileFormData.avatar}
@@ -159,54 +159,55 @@ const ProfileForm = () => {
           <option value="Female">Female</option>
           <option value="Other">Other</option>
         </select>
-        <h2 className="font-bold text-xl">Section Visibility</h2>
-        <span className="text-zinc-500">
-          Select which sections and content should show on your profile page.
-        </span>
-        <section className="bg-zinc-50 rounded-2xl p-6 flex flex-col gap-3">
-          <div className="flex justify-between">
-            <div>
-              <h3 className="text-base font-semibold">
-                Followers and following
-              </h3>
-              <span className="text-zinc-500">
-                Shows your followers and the users you follow on codedamn
-              </span>
+        <div className="flex flex-col gap-3 mt-5">
+          <h2 className="font-bold text-xl">Section Visibility</h2>
+          <span className="text-zinc-500">
+            Select which sections and content should show on your profile page.
+          </span>
+          <section className="bg-zinc-50 rounded-2xl p-6 flex flex-col gap-3 my-3">
+            <div className="flex justify-between">
+              <div>
+                <h3 className="text-base font-semibold">
+                  Followers and following
+                </h3>
+                <span className="text-zinc-500">
+                  Shows your followers and the users you follow on codedamn
+                </span>
+              </div>
+              <ToggleSwitch
+                name="visibilityFollowers"
+                onChangeHandler={onChangeHandler}
+                toggleValue={profileFormData.visibilityFollowers}
+              />
             </div>
-            <ToggleSwitch
-              name="visibilityFollowers"
-              onChangeHandler={onChangeHandler}
-              toggleValue={profileFormData.visibilityFollowers}
-            />
-          </div>
-          <div className="flex justify-between">
-            <div>
-              <h3 className="text-base font-semibold">XP</h3>
-              <span className="text-zinc-500">
-                Shows the XP you have earned
-              </span>
+            <div className="flex justify-between">
+              <div>
+                <h3 className="text-base font-semibold">XP</h3>
+                <span className="text-zinc-500">
+                  Shows the XP you have earned
+                </span>
+              </div>
+              <ToggleSwitch
+                name="visibilityXP"
+                onChangeHandler={onChangeHandler}
+                toggleValue={profileFormData.visibilityXP}
+              />
             </div>
-            <ToggleSwitch
-              name="visibilityXP"
-              onChangeHandler={onChangeHandler}
-              toggleValue={profileFormData.visibilityXP}
-            />
-          </div>
-          <div className="flex justify-between">
-            <div>
-              <h3 className="text-base font-semibold">Achievement badges</h3>
-              <span className="text-zinc-500">
-                Shows your relative percentile and proficiency
-              </span>
+            <div className="flex justify-between">
+              <div>
+                <h3 className="text-base font-semibold">Achievement badges</h3>
+                <span className="text-zinc-500">
+                  Shows your relative percentile and proficiency
+                </span>
+              </div>
+              <ToggleSwitch
+                name="visibilityBadges"
+                onChangeHandler={onChangeHandler}
+                toggleValue={profileFormData.visibilityBadges}
+              />
             </div>
-            <ToggleSwitch
-              name="visibilityBadges"
-              onChangeHandler={onChangeHandler}
-              toggleValue={profileFormData.visibilityBadges}
-            />
-          </div>
-        </section>
-
+          </section>
+        </div>
         <FormSaveButton isFormChanged={isFormChanged} />
         {isFormChanged && <UnSavedDialogBox />}
       </form>
