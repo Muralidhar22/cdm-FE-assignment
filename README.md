@@ -17,6 +17,13 @@
 - Edit profile information such as name, profile picture etc.
 - Add and remove skills shown under resume
 
+## Demo
+
+
+https://user-images.githubusercontent.com/33935339/221545862-340ca8ce-260e-4f10-b7dc-5cec7c2de325.mp4
+
+
+
 ## preview
 ![image](https://user-images.githubusercontent.com/33935339/221535813-a9169785-aecf-4f86-a20c-f4f81f25c3ac.png)
 
